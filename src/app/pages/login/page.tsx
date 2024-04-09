@@ -2,6 +2,7 @@
 import { Input, Button } from "@nextui-org/react";
 import { useState } from "react";
 import { z } from "zod";
+import { MongoClient } from "mongodb";
 
 export default function Login() {
   const [email, setEmail] = useState(null);
@@ -12,12 +13,10 @@ export default function Login() {
   };
 
   const handleSubmit = async () => {
-    const { success } = mySchema.safeParse(email);
-    if (!success) {
-      alert("Enter valid email");
-      return;
-    }
-    alert("Success");
+    const resp = await fetch("../api/sample", {
+      body: JSON.stringify("JOSHIK"),
+      method: "POST",
+    });
   };
 
   return (

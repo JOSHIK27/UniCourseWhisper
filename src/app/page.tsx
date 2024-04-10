@@ -4,7 +4,7 @@ import university from "../../public/End of school-bro.png";
 export default function Home() {
   return (
     <div>
-      <div className="flex">
+      <div className="flex flex-wrap">
         <div className="ml-40 mt-36">
           <div className="text-[65px] text-[#12372A] mb-8 font-cinzer font-300">
             UNI <br /> COURSE <br /> WHISPER

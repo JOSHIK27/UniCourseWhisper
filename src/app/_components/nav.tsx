@@ -8,11 +8,16 @@ import {
   Navbar,
   NavbarBrand,
   NavbarContent,
-  NavbarItem,
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
+  NavbarItem,
   Link,
+  DropdownItem,
+  DropdownTrigger,
+  Dropdown,
+  DropdownMenu,
+  Avatar,
   Button,
 } from "@nextui-org/react";
 
@@ -20,18 +25,7 @@ export default function Nav() {
   const session = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
+  const menuItems = ["Profile", "My Settings", "Log Out"];
 
   if (session.status == "loading") {
     return <></>;
@@ -46,19 +40,19 @@ export default function Nav() {
         />
         <NavbarBrand>
           <Link href="/">
-            <p className="font-bold text-inherit">UCW</p>
+            <p className="font-bold text-[#12372A]">UCW</p>
           </Link>
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent className="hidden sm:flex gap-8" justify="center">
+      <NavbarContent className="hidden sm:flex gap-40" justify="center">
         <NavbarItem>
           <Link color="foreground" href="#">
             Features
           </Link>
         </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
+        <NavbarItem>
+          <Link href="#" color="foreground">
             Customers
           </Link>
         </NavbarItem>
@@ -68,25 +62,59 @@ export default function Nav() {
           </Link>
         </NavbarItem>
       </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem
-          onClick={() => {
-            if (session?.data?.user) {
-              signOut({ callbackUrl: "/" });
-            } else {
-              router.push("/login");
-            }
-          }}
-          className="hidden lg:flex cursor-pointer"
-        >
-          {session?.data?.user ? "Logout" : "Login"}
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
-            Sign Up
-          </Button>
-        </NavbarItem>
-      </NavbarContent>
+
+      {!session?.data && (
+        <NavbarContent justify="end">
+          <NavbarItem className="hidden lg:flex cursor-pointer">
+            <Button
+              onClick={() => {
+                router.push("/login");
+              }}
+              as={Link}
+              color="primary"
+              href="#"
+              variant="flat"
+            >
+              Login
+            </Button>
+          </NavbarItem>
+        </NavbarContent>
+      )}
+      {session?.data?.user && (
+        <NavbarContent as="div" justify="end">
+          <Dropdown placement="bottom-end">
+            <DropdownTrigger>
+              <Avatar
+                isBordered
+                as="button"
+                className="transition-transform"
+                color="default"
+                name={
+                  session?.data?.user?.email?.length
+                    ? session?.data?.user?.email[0]
+                    : "K"
+                }
+                size="sm"
+              />
+            </DropdownTrigger>
+            <DropdownMenu aria-label="Profile Actions" variant="flat">
+              <DropdownItem key="profile" className="h-14 gap-2">
+                <p className="font-semibold">Signed in as</p>
+                <p className="font-semibold">{session?.data?.user?.email}</p>
+              </DropdownItem>
+              <DropdownItem key="settings">My Settings</DropdownItem>
+              <DropdownItem
+                onClick={() => signOut({ callbackUrl: "/" })}
+                key="logout"
+                color="danger"
+              >
+                Log Out
+              </DropdownItem>
+            </DropdownMenu>
+          </Dropdown>
+        </NavbarContent>
+      )}
+
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>

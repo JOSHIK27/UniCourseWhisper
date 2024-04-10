@@ -1,21 +1,16 @@
 "use client";
 import { Input, Button } from "@nextui-org/react";
 import { useState } from "react";
-import { z } from "zod";
-import { MongoClient } from "mongodb";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
   const [email, setEmail] = useState(null);
-  const mySchema = z.string().email();
-
-  const handleEmail = (e: any) => {
-    setEmail(e.target.value);
-  };
 
   const handleSubmit = async () => {
-    const resp = await fetch("../api/sample", {
-      body: JSON.stringify("JOSHIK"),
-      method: "POST",
+    signIn("email", {
+      email: email,
+      redirect: true,
+      callbackUrl: "/",
     });
   };
 
@@ -26,7 +21,7 @@ export default function Login() {
           SIGNIN WITH HERIOT-WATT EMAIL
         </h1>
         <Input
-          onChange={handleEmail}
+          onChange={(e: any) => setEmail(e.target.value)}
           size="sm"
           className="w-[450px] mb-4 font-sans"
           type="email"

@@ -13,5 +13,8 @@ export const {
   session: {
     strategy: "jwt",
   },
+  pages: {
+    signIn: "/pages/login",
+  },
   ...authConfig,
 });

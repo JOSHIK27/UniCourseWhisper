@@ -2,6 +2,7 @@ import { NextAuthConfig } from "next-auth";
 import EmailProvider from "next-auth/providers/nodemailer";
 
 export default {
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     EmailProvider({
       id: "email",

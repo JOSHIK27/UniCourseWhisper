@@ -1,4 +1,4 @@
-import { client } from "@/app/_lib/mongo";
+import { client } from "@/app/_lib/mongodb/mongo";
 
 export async function POST(request: Request) {
   await client.connect();

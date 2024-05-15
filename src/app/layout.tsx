@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
-import { Cinzel } from "next/font/google";
 import "./globals.css";
 import Nav from "./_components/nav";
 import { Providers } from "./providers";
-
-const cinzel = Cinzel({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" style={{ backgroundColor: "#E1F0DA" }}>
-      <body className={cinzel.className}>
+      <body>
         <Providers>
           <Nav />
           {children}

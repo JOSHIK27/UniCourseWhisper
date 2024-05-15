@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^2.6.0",
+    "@hookform/resolvers": "^3.4.0",
+    "@nextui-org/button": "^2.0.31",
     "@nextui-org/react": "^2.2.10",
     "@upstash/redis": "^1.29.0",
     "framer-motion": "^11.0.25",
@@ -20,7 +22,8 @@
     "nodemailer": "^6.9.13",
     "react": "^18",
     "react-dom": "^18",
-    "zod": "^3.22.4"
+    "react-hook-form": "^7.51.4",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.12.6",
